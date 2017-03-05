@@ -5,7 +5,7 @@ A Simple Teleport Protection, meant to be for CS:S and CS:GO servers, using the 
 This plugin just protects you from any damage from a time (defined by the server owner) since you touched a teleport entity (called trigger_teleport).
 It doesn't need any zones plugin, but only works with teleports that is caused by touching a trigger_teleport!
 
-This plugin was meant to be private, but some m*********** decided to share it with everyone (because I gave to a friend and he decided to configure), so it's totally my fault.
+This plugin was meant to be private (just for my community), but some m*********** decided to share it with everyone (because I gave to a friend and he decided to configure), so it's totally my fault.
 But the problem is that he tried to sell many times, so I decided to publish here on github, with some differences.
 
 Changelog since the "leaked" version:
