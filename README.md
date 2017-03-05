@@ -25,6 +25,10 @@ For the developers:
 
 To compile, you need the ColorVariables include (to add the colors) - https://forums.alliedmods.net/showthread.php?t=267743
 
+Known bugs:
+
+The trigger_push entity can also triggers this, which I didn't fix yet for private reasons (I will release a new version ASAP).
+
 I hope you enjoyed!
 
 My Steam Profile if you have any questions -> http://steamcommunity.com/id/HallucinogenicTroll/
