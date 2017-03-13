@@ -10,11 +10,13 @@ But the problem is that he tried to sell many times, so I decided to publish her
 
 Changelog since the "leaked" version:
 
-[li]
-[*] Added Translations, to be easy to configure to server owners.
-Added colors to the translations, if you want a colorfull text.
-Added a CVAR to change the time you want to be fully god mode.
-Converted everything to the new Syntax.[/li]
+<ul>
+<li>Added Translations, to be easy to configure to server owners.</li>
+<li>Added colors to the translations, if you want a colorfull text.</li>
+<li>Added a CVAR to change the time you want to be fully god mode.</li>
+<li>Converted everything to the new Syntax.</li>
+</ul>
+
 
 Installation:
 
