@@ -21,7 +21,7 @@ Changelog since the "leaked" version:
 
 Installation:
 <ol>
-<li>Drag the file named <i>telekill_protect.smx</i> to <b>sourcemod/plugins</b>.</li>
+<li>Drag the file named <i>telekill_protection.smx</i> to <b>sourcemod/plugins</b>.</li>
 <li>Drag the file named <i>sm_telekill_protection.phrases.txt</i> to <b>sourcemod/translations</b>.</li>
 <li>Load the plugin or just wait for the next map.</li>
 </ol>
