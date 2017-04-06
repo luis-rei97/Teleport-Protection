@@ -1,13 +1,15 @@
 "Phrases"
 {
-	"TelekillProtectedMessage"
+	"Protected Message"
 	{
-		"#format"	"{1:i}"
-		"en"		"You are protected from any damage for {green}{1}{default} seconds!"
+		"#format"	"{1:d}"
+		"en"		"You are protected for {green}{1}{default} second(s)!"
+		"pt"		"Estás protegido durante {green}{1}{default} segundo(s)!"
 	}
 	
-	"TelekillUnProtectedMessage"
+	"Unprotected Message"
 	{
-		"en"		"You are {green}unprotected{default} from any damage!"
+		"en"		"You are no longer {green}protected{default} from any damage!"
+		"pt"		"Estás {green}desprotegido{default} de qualquer dano!"
 	}
 }
