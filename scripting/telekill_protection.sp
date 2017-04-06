@@ -42,6 +42,7 @@ public Action Event_RoundEnd(Handle event, const char[] name, bool dontBroadcast
 
 public Output_TeleStartTouch(const char[] output, int caller, int activator, float delay)
 {
+	// If the player isn't in god mode, it will proceed;
 	if(!PlayerIsAlreadyInGodMode[activator])
 	{
 		float time = GetConVarFloat(g_time_float);
@@ -54,6 +55,7 @@ public Output_TeleStartTouch(const char[] output, int caller, int activator, flo
 
 public Action Timer_GodMode(Handle timer, int client)
 {
+	// If the player is with god mode, it will disable it;
 	if(PlayerIsAlreadyInGodMode[client])
 	{
 		PlayerIsAlreadyInGodMode[client] = false;
