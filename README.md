@@ -32,7 +32,7 @@ To compile, you need the ColorVariables include (to add the colors) - https://fo
 
 Known bugs:
 
-The trigger_push entity can also triggers this, which I didn't fix yet for private reasons (I will release a new version ASAP).
+None (yet).
 
 I hope you enjoyed!
 
