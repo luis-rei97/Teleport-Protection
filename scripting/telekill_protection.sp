@@ -5,6 +5,8 @@
 // CVAR to change the timer's time;
 ConVar g_time_float;
 
+// Bool to check if he hooks a trigger_teleport when the "God Mode"'s timer is already activated.
+bool PlayerIsAlreadyInGodMode[MAXPLAYERS+1] = false;
 
 
 public Plugin myinfo =
@@ -40,8 +42,9 @@ public Action Event_RoundEnd(Handle event, const char[] name, bool dontBroadcast
 public Output_TeleStartTouch(const char[] output, int caller, int activator, float delay)
 {
 	// If the player isn't in god mode, it will proceed;
-	if(GetEntProp(activator, Prop_Data, "m_takeDamage") == 2)
+	if(!PlayerIsAlreadyInGodMode[activator])
 	{
+		PlayerIsAlreadyInGodMode[activator] = true;
 		SetEntProp(activator, Prop_Data, "m_takedamage", 0, 1);
 		CPrintToChat(activator, "[\x0EAnti-Telekill\x01] %t", "Protected Message", RoundToNearest(GetConVarFloat(g_time_float)));
 		CreateTimer(1.0, Timer_GodMode, activator);
@@ -50,11 +53,12 @@ public Output_TeleStartTouch(const char[] output, int caller, int activator, flo
 
 public Action Timer_GodMode(Handle timer, int client)
 {
-	if(IsPlayerAlive(client))
+	if(IsClientInGame(client))
 	{
 		// If the player is with god mode, it will disable it;
-		if(GetEntProp(client, Prop_Data, "m_takeDamage") == 0)
+		if(PlayerIsAlreadyInGodMode[client])
 		{
+			PlayerIsAlreadyInGodMode[client] = false;
 			CPrintToChat(client, "[\x0EAnti-Telekill\x01] %t", "Unprotected Message");
 			SetEntProp(client, Prop_Data, "m_takedamage", 2, 1);
 		}
