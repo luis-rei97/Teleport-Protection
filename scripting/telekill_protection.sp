@@ -1,6 +1,5 @@
 #include <sourcemod>
 #include <sdktools>
-#include <sdkhooks>
 #include <colorvariables>
 
 // CVAR to change the timer's time;
@@ -15,8 +14,8 @@ public Plugin myinfo =
     name = "Telekill Protection",
     author = "Hallucinogenic Troll",
     description = "A Simple Teleport Protection, to prevent kills right after going through a teleport",
-    version = "1.2",
-    url = "http://steamcommunity.com/id/HallucinogenicTroll/"
+    version = "1.3",
+    url = "http://ptfun.net/newsite/"
 };
 
 public void OnPluginStart()
@@ -45,25 +44,25 @@ public Output_TeleStartTouch(const char[] output, int caller, int activator, flo
 	// If the player isn't in god mode, it will proceed;
 	if(!PlayerIsAlreadyInGodMode[activator])
 	{
-		float time = GetConVarFloat(g_time_float);
 		PlayerIsAlreadyInGodMode[activator] = true;
 		SetEntProp(activator, Prop_Data, "m_takedamage", 0, 1);
-		CPrintToChat(activator, "[\x0EAnti-Telekill\x01] %t", "Protected Message", RoundToNearest(time));
-		CreateTimer(1.0, Timer_GodMode, activator);
+		CPrintToChat(activator, "[\x0EAnti-Telekill\x01] %t", "Protected Message", RoundToNearest(GetConVarFloat(g_time_float)));
+		CreateTimer(1.0, Timer_GodMode, GetClientUserId(activator));
 	}
 }
 
 public Action Timer_GodMode(Handle timer, int client)
 {
-	// If the player is with god mode, it will disable it;
-	if(PlayerIsAlreadyInGodMode[client])
+	if(IsPlayerAlive(client))
 	{
-		PlayerIsAlreadyInGodMode[client] = false;
-		CPrintToChat(client, "[\x0EAnti-Telekill\x01] %t", "Unprotected Message");
-		SetEntProp(client, Prop_Data, "m_takedamage", 2, 1);
+		// If the player is with god mode, it will disable it;
+		if(PlayerIsAlreadyInGodMode[client])
+		{
+			PlayerIsAlreadyInGodMode[client] = false;
+			CPrintToChat(client, "[\x0EAnti-Telekill\x01] %t", "Unprotected Message");
+			SetEntProp(client, Prop_Data, "m_takedamage", 2, 1);
+		}
 	}
-    	else
-    	{
-    		KillTimer(timer);
-   	}
+	
+	return Plugin_Stop;
 }
