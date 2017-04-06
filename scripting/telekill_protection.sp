@@ -14,7 +14,7 @@ public Plugin myinfo =
     name = "Telekill Protection",
     author = "Hallucinogenic Troll",
     description = "A Simple Teleport Protection, to prevent kills right after going through a teleport",
-    version = "1.3",
+    version = "1.3fix",
     url = "http://ptfun.net/newsite/"
 };
 
