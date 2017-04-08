@@ -14,7 +14,7 @@ public Plugin myinfo =
     name = "Telekill Protection",
     author = "Hallucinogenic Troll",
     description = "A Simple Teleport Protection, to prevent kills right after going through a teleport",
-    version = "1.3fix",
+    version = "1.4fix",
     url = "http://ptfun.net/newsite/"
 };
 
@@ -47,7 +47,7 @@ public Output_TeleStartTouch(const char[] output, int caller, int activator, flo
 		PlayerIsAlreadyInGodMode[activator] = true;
 		SetEntProp(activator, Prop_Data, "m_takedamage", 0, 1);
 		CPrintToChat(activator, "[\x0EAnti-Telekill\x01] %t", "Protected Message", RoundToNearest(GetConVarFloat(g_time_float)));
-		CreateTimer(1.0, Timer_GodMode, activator);
+		CreateTimer(GetConVarFloat(g_time_float), Timer_GodMode, GetClientUserId(activator));
 	}
 }
 
