@@ -9,7 +9,13 @@
 	
 	"Unprotected Message"
 	{
-		"en"		"You are no longer {green}protected{default} from any damage!"
+		"en"		"You are no longer {green}protected{default} from any damage!
 		"pt"		"Estás {green}desprotegido{default} de qualquer dano!"
+	}
+	
+	"WeaponFire Message"
+	{
+		"en"		"Your protection has been {green}disabled{default} since you fired a weapon!"
+		"pt"		"Estás {green}desprotegido{default} pois disparaste uma arma!"
 	}
 }
