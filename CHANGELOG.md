@@ -20,3 +20,7 @@
 - Added a cvar named <b>sm_telekill_spawnprotection</b> (Default: 5.0) - Time to enable this plugin after the round starts. It is highly recommended to set the value equal or bigger than your SpawnProtection plugin (if you have it);
 - Added a cvar named <b>sm_telekill_weaponfire</b> (Default: 1) - If a player fires a gun when he has the protection, he will be unprotected (useful for people who abuses the protections and kill people that went to the teleport a bit before);
 - Simply a new method to track the trigger_teleport (I believe it doesn't protect with trigger_push anymore, at least it doesn't happen in my server);
+
+<h2>Version 1.5</h2>
+
+- Fixed a bug with client indexes; (Huge thanks to greatblader for testing this version); 

@@ -20,9 +20,13 @@
 #include <colorvariables>
 
 // Plugin's ConVars;
-ConVar g_telekill_time_float;
-ConVar g_telekill_spawnprotection;
-ConVar g_telekill_weaponfire;
+ConVar g_CVAR_telekill_time_float;
+ConVar g_CVAR_telekill_spawnprotection;
+ConVar g_CVAR_telekill_weaponfire;
+
+float g_telekill_time_float;
+float g_telekill_spawnprotection;
+int g_telekill_weaponfire;
 
 Handle timer_handle[MAXPLAYERS + 1] = {INVALID_HANDLE, ...};
 bool SpawnProtection = false;
@@ -34,15 +38,15 @@ public Plugin myinfo =
     name = "Telekill Protection",
     author = "Hallucinogenic Troll",
     description = "A Simple Teleport Protection, to prevent kills right after going through a teleport",
-    version = "1.4fix",
+    version = "1.5",
     url = "http://ptfun.net/newsite/"
 };
 
 public void OnPluginStart()
 {
-	g_telekill_time_float = CreateConVar("sm_telekill_protection_time", "1.0", "Time to give protection to a player when he touches the trigger", _, true, 0.0, false);
-	g_telekill_spawnprotection = CreateConVar("sm_telekill_spawnprotection", "5.0", "Time to enable this plugin after the round starts (If you use spawn protection, use this)", _, true, 0.0, false);
-	g_telekill_weaponfire = CreateConVar("sm_telekill_weaponfire", "1", "Removes player's protection right after he fires his weapons", _, true, 0.0, true, 0.0);
+	g_CVAR_telekill_time_float = CreateConVar("sm_telekill_protection_time", "1.0", "Time to give protection to a player when he touches the trigger", _, true, 0.0, false);
+	g_CVAR_telekill_spawnprotection = CreateConVar("sm_telekill_spawnprotection", "5.0", "Time to enable this plugin after the round starts (If you use spawn protection, use this)", _, true, 0.0, false);
+	g_CVAR_telekill_weaponfire = CreateConVar("sm_telekill_weaponfire", "1", "Removes player's protection right after he fires his weapons", _, true, 0.0, true, 0.0);
 	HookEvent("round_start", Event_RoundStart);
 	HookEvent("weapon_fire", Event_WeaponFire);
 	
@@ -51,11 +55,18 @@ public void OnPluginStart()
 	AutoExecConfig(true, "sm_telekill_protection");
 }
 
+public void OnConfigsExecuted()
+{
+	g_telekill_time_float = g_CVAR_telekill_time_float.FloatValue;
+	g_telekill_spawnprotection = g_CVAR_telekill_spawnprotection.FloatValue;
+	g_telekill_weaponfire = g_CVAR_telekill_weaponfire.IntValue;
+}
+
 public Action Event_RoundStart(Event event, const char[] name, bool dontBroadcast)
 {
 	SpawnProtection = true;
 	int ent = -1;
-	CreateTimer(GetConVarFloat(g_telekill_spawnprotection), Timer_DisableSpawn);
+	CreateTimer(g_telekill_spawnprotection, Timer_DisableSpawn);
 	while((ent = FindEntityByClassname(ent, "trigger_teleport")) != -1)
 	{
 		HookSingleEntityOutput(ent, "OnStartTouch", Output_TeleStartTouch)
@@ -88,8 +99,8 @@ public Output_TeleStartTouch(const char[] output, int caller, int activator, flo
 			if(timer_handle[activator] == INVALID_HANDLE && GetEntProp(activator, Prop_Data, "m_takedamage") == 2)
 			{
 				SetEntProp(activator, Prop_Data, "m_takedamage", 0, 1);
-				CPrintToChat(activator, "[\x0EPT'Fun \x04Anti-Telekill\x01] %t", "Protected Message", RoundToNearest(GetConVarFloat(g_telekill_time_float)));
-				timer_handle[activator] = CreateTimer(GetConVarFloat(g_telekill_time_float), Timer_GodMode, GetClientUserId(activator));
+				CPrintToChat(activator, "[\x04Anti-Telekill\x01] %t", "Protected Message", RoundToNearest(g_telekill_time_float));
+				timer_handle[activator] = CreateTimer(g_telekill_time_float, Timer_GodMode, GetClientUserId(activator));
 			}
 	}
 }
@@ -99,8 +110,13 @@ public Action Timer_DisableSpawn(Handle timer, int client)
 	SpawnProtection = false;
 }
 
-public Action Timer_GodMode(Handle timer, int client)
+public Action Timer_GodMode(Handle timer, int userid)
 {
+	int client = GetClientOfUserId(userid);
+	
+	if(!client)
+		return Plugin_Stop;
+	
 	if(IsClientInGame(client))
 	{
 		
@@ -114,9 +130,8 @@ public Action Timer_GodMode(Handle timer, int client)
 			if(timer != INVALID_HANDLE)
 			{
 				timer_handle[client] = INVALID_HANDLE;
-				CPrintToChat(client, "[\x0EPT'Fun \x04Anti-Telekill\x01] %t", "Unprotected Message");
+				CPrintToChat(client, "[\x04Anti-Telekill\x01] %t", "Unprotected Message");
 				SetEntProp(client, Prop_Data, "m_takedamage", 2, 1);
-				KillTimer(timer);
 			}
 		}
 	}
